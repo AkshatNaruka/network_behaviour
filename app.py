@@ -451,7 +451,14 @@ def main():
     import subprocess
     
     # Run streamlit with this file
-    subprocess.run([sys.executable, "-m", "streamlit", "run", __file__] + sys.argv[1:])
+    # Only pass through safe streamlit arguments, filter out any potentially dangerous ones
+    safe_args = []
+    for arg in sys.argv[1:]:
+        # Allow common streamlit arguments
+        if arg.startswith('--') or not arg.startswith('-'):
+            safe_args.append(arg)
+    
+    subprocess.run([sys.executable, "-m", "streamlit", "run", __file__] + safe_args)
 
 
 if __name__ == "__main__":

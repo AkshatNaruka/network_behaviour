@@ -79,6 +79,7 @@ netbehaviour-web = "app:main"
 
 [tool.setuptools]
 packages = ["modules", "modules.packet_capture", "modules.network_scanner", "modules.dns_tools", "modules.network_info", "modules.network_visualizer", "modules.utils"]
+py-modules = ["cli", "gui", "app"]
 
 [tool.setuptools.package-data]
 "*" = ["*.md", "*.txt", "*.sh", "*.bat"]
