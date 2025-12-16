@@ -100,9 +100,42 @@ sudo python3 app.py
 
 ## 🎯 Usage
 
+### Desktop GUI Application (Recommended)
+
+Launch the native desktop GUI application:
+
+**Linux/macOS:**
+```bash
+./run_gui.sh
+# Or directly:
+python3 gui.py
+```
+
+**Windows:**
+```batch
+run_gui.bat
+# Or directly:
+python gui.py
+```
+
+Or if installed via pip:
+```bash
+netbehaviour-gui
+```
+
+The desktop GUI provides a native, user-friendly interface with all features:
+- **📡 Packet Capture Tab**: Capture and analyze network traffic
+- **🔍 Port Scanner Tab**: Scan hosts for open ports and services
+- **🗺️ Network Discovery Tab**: Discover active hosts on your network
+- **🌐 DNS & WHOIS Tab**: Perform DNS and WHOIS lookups
+- **📊 Network Info Tab**: View detailed network interface information
+- **📈 Bandwidth Monitor Tab**: Monitor real-time bandwidth usage
+
+**Note:** Some features require administrator/root privileges. On Linux/macOS, run with `sudo ./run_gui.sh` or `sudo python3 gui.py`. On Windows, right-click and select "Run as Administrator".
+
 ### Streamlit Web Interface
 
-Launch the interactive web interface:
+Alternatively, launch the interactive web interface:
 
 ```bash
 streamlit run app.py
