@@ -48,6 +48,7 @@ setup(
     entry_points={
         "console_scripts": [
             "netbehaviour=cli:main",
+            "netbehaviour-gui=gui:main",
         ],
     },
     keywords="network analysis monitoring security packet-capture port-scanner dns wireshark nmap",
