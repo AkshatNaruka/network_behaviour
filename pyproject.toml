@@ -1,0 +1,94 @@
+[build-system]
+requires = ["setuptools>=65.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "network-behaviour"
+version = "2.0.0"
+description = "Comprehensive network analysis and monitoring suite"
+readme = "README.md"
+authors = [
+    {name = "Network Behaviour Contributors"}
+]
+license = {text = "MIT"}
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: System Administrators",
+    "Intended Audience :: Developers",
+    "Topic :: System :: Networking",
+    "Topic :: System :: Monitoring",
+    "Topic :: Security",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Operating System :: OS Independent",
+    "Environment :: Console",
+    "Environment :: Web Environment",
+]
+keywords = [
+    "network",
+    "analysis",
+    "monitoring",
+    "security",
+    "packet-capture",
+    "port-scanner",
+    "dns",
+    "wireshark",
+    "nmap",
+    "network-security",
+    "network-tools",
+    "bandwidth-monitor",
+]
+requires-python = ">=3.8"
+dependencies = [
+    "matplotlib>=3.7.1",
+    "scapy>=2.5.0",
+    "streamlit>=1.23.1",
+    "psutil>=5.9.5",
+    "netifaces>=0.11.0",
+    "dnspython>=2.4.2",
+    "networkx>=3.1",
+    "plotly>=5.17.0",
+    "pandas>=2.0.3",
+    "numpy>=1.24.3",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0",
+    "pytest-cov>=4.0",
+    "black>=23.0",
+    "flake8>=6.0",
+    "mypy>=1.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/AkshatNaruka/network_behaviour"
+Documentation = "https://github.com/AkshatNaruka/network_behaviour#readme"
+Repository = "https://github.com/AkshatNaruka/network_behaviour"
+"Bug Reports" = "https://github.com/AkshatNaruka/network_behaviour/issues"
+Changelog = "https://github.com/AkshatNaruka/network_behaviour/blob/main/CHANGELOG.md"
+
+[project.scripts]
+netbehaviour = "cli:main"
+netbehaviour-gui = "gui:main"
+netbehaviour-web = "app:main"
+
+[tool.setuptools]
+packages = ["modules", "modules.packet_capture", "modules.network_scanner", "modules.dns_tools", "modules.network_info", "modules.network_visualizer", "modules.utils"]
+
+[tool.setuptools.package-data]
+"*" = ["*.md", "*.txt", "*.sh", "*.bat"]
+
+[tool.black]
+line-length = 100
+target-version = ['py38']
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
