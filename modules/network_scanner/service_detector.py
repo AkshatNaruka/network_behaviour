@@ -269,6 +269,8 @@ class ServiceDetector:
         try:
             import ssl
             context = ssl.create_default_context()
+            # Set minimum TLS version to 1.2 for security
+            context.minimum_version = ssl.TLSVersion.TLSv1_2
             context.check_hostname = False
             context.verify_mode = ssl.CERT_NONE
             
