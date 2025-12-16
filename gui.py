@@ -10,11 +10,21 @@ import time
 from datetime import datetime
 import queue
 
+try:
+    from scapy.all import wrpcap
+except ImportError:
+    wrpcap = None
+
 from modules.packet_capture import PacketSniffer, PacketAnalyzer, ProtocolParser
 from modules.network_scanner import PortScanner, HostDiscovery, ServiceDetector
 from modules.dns_tools import DNSLookup, WhoisLookup
 from modules.network_info import NetworkInfo, BandwidthMonitor
 from modules.utils import get_local_ip, validate_ip
+
+# Constants
+VERSION = "2.0.0"
+MAX_CONNECTIONS_DISPLAY = 50
+PACKET_CAPTURE_POLL_INTERVAL = 0.1
 
 
 class NetworkBehaviourGUI:
@@ -454,7 +464,7 @@ class NetworkBehaviourGUI:
                 
                 # Wait for completion
                 while sniffer.is_capturing and len(self.captured_packets) < count:
-                    time.sleep(0.1)
+                    time.sleep(PACKET_CAPTURE_POLL_INTERVAL)
                 
                 sniffer.stop_capture()
                 
@@ -482,6 +492,10 @@ class NetworkBehaviourGUI:
             messagebox.showwarning("No Data", "No packets captured to save")
             return
         
+        if wrpcap is None:
+            messagebox.showerror("Error", "Scapy is required to save PCAP files")
+            return
+        
         filename = filedialog.asksaveasfilename(
             defaultextension=".pcap",
             filetypes=[("PCAP files", "*.pcap"), ("All files", "*.*")]
@@ -489,12 +503,11 @@ class NetworkBehaviourGUI:
         
         if filename:
             try:
-                # Use scapy to write packets
-                from scapy.all import wrpcap
                 wrpcap(filename, self.captured_packets)
                 messagebox.showinfo("Success", f"Saved {len(self.captured_packets)} packets to {filename}")
             except Exception as e:
                 messagebox.showerror("Error", f"Failed to save: {str(e)}")
+
     
     # Port Scanner functions
     def start_port_scan(self):
@@ -666,8 +679,10 @@ class NetworkBehaviourGUI:
                 elif info_type == 'Active Connections':
                     connections = NetworkInfo.get_connections()
                     result_text = f"Active Connections ({len(connections)}):\n\n"
-                    for conn in connections[:50]:
+                    for conn in connections[:MAX_CONNECTIONS_DISPLAY]:
                         result_text += f"{conn['laddr']} -> {conn['raddr']} [{conn['status']}]\n"
+                    if len(connections) > MAX_CONNECTIONS_DISPLAY:
+                        result_text += f"\n... and {len(connections) - MAX_CONNECTIONS_DISPLAY} more connections\n"
                 
                 elif info_type == 'Interface Statistics':
                     stats = NetworkInfo.get_interface_stats()
@@ -754,8 +769,8 @@ class NetworkBehaviourGUI:
     
     def show_about(self):
         """Show about dialog"""
-        about_text = """Network Behaviour Tool - Desktop GUI
-Version 2.0
+        about_text = f"""Network Behaviour Tool - Desktop GUI
+Version {VERSION}
 
 Comprehensive network analysis and monitoring suite with a native desktop interface.
 
