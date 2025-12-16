@@ -104,12 +104,21 @@ sudo python3 app.py
 
 Launch the native desktop GUI application:
 
+**Linux/macOS:**
 ```bash
+./run_gui.sh
+# Or directly:
 python3 gui.py
 ```
 
-Or if installed via pip:
+**Windows:**
+```batch
+run_gui.bat
+# Or directly:
+python gui.py
+```
 
+Or if installed via pip:
 ```bash
 netbehaviour-gui
 ```
@@ -122,7 +131,7 @@ The desktop GUI provides a native, user-friendly interface with all features:
 - **📊 Network Info Tab**: View detailed network interface information
 - **📈 Bandwidth Monitor Tab**: Monitor real-time bandwidth usage
 
-**Note:** Some features require administrator/root privileges. On Linux/macOS, run with `sudo python3 gui.py`
+**Note:** Some features require administrator/root privileges. On Linux/macOS, run with `sudo ./run_gui.sh` or `sudo python3 gui.py`. On Windows, right-click and select "Run as Administrator".
 
 ### Streamlit Web Interface
 
