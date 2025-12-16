@@ -31,24 +31,26 @@ class NetworkCLI:
             epilog='''
 Examples:
   # Packet capture
-  netbehaviour capture --interface eth0 --count 100
-  netbehaviour capture --filter "tcp port 80" --output capture.pcap
+  python3 cli.py capture --interface eth0 --count 100
+  python3 cli.py capture --filter "tcp port 80" --output capture.pcap
   
   # Port scanning
-  netbehaviour scan --host 192.168.1.1 --ports 1-1000
-  netbehaviour scan --host example.com --quick
+  python3 cli.py scan --host 192.168.1.1 --ports 1-1000
+  python3 cli.py scan --host example.com --quick
   
   # Host discovery
-  netbehaviour discover --network 192.168.1.0/24
+  python3 cli.py discover --network 192.168.1.0/24
   
   # DNS lookup
-  netbehaviour dns --domain example.com --type A
-  netbehaviour whois --domain example.com
+  python3 cli.py dns --domain example.com --type A
+  python3 cli.py whois --domain example.com
   
   # Network info
-  netbehaviour info --interfaces
-  netbehaviour info --connections
-  netbehaviour bandwidth --duration 10
+  python3 cli.py info --interfaces
+  python3 cli.py info --connections
+  python3 cli.py bandwidth --duration 10
+  
+Note: When installed via pip, use 'netbehaviour' command instead of 'python3 cli.py'
             '''
         )
         

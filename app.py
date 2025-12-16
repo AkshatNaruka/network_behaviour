@@ -77,11 +77,13 @@ with st.sidebar:
     connectivity = NetworkInfo.test_connectivity()
     st.metric("Internet", "✅ Connected" if connectivity else "❌ Disconnected")
     
-    # Public IP
-    with st.spinner("Getting public IP..."):
-        public_ip = NetworkInfo.get_public_ip()
-        if public_ip:
-            st.metric("Public IP", public_ip)
+    # Public IP (cached to avoid repeated requests)
+    if 'public_ip' not in st.session_state:
+        with st.spinner("Getting public IP..."):
+            st.session_state.public_ip = NetworkInfo.get_public_ip()
+    
+    if st.session_state.public_ip:
+        st.metric("Public IP", st.session_state.public_ip)
 
 # Main tabs
 tab1, tab2, tab3, tab4, tab5, tab6, tab7 = st.tabs([

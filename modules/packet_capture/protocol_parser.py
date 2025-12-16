@@ -150,15 +150,16 @@ class ProtocolParser:
         }
         
         # Parse DNS queries
-        if dns.qd:
-            for i in range(dns.qdcount):
-                if dns.qd:
-                    qry = dns.qd if not hasattr(dns.qd, '__iter__') else dns.qd
-                    info['queries'].append({
-                        'name': qry.qname.decode() if isinstance(qry.qname, bytes) else str(qry.qname),
-                        'type': qry.qtype,
-                        'class': qry.qclass
-                    })
+        if dns.qd and dns.qdcount > 0:
+            try:
+                qry = dns.qd
+                info['queries'].append({
+                    'name': qry.qname.decode() if isinstance(qry.qname, bytes) else str(qry.qname),
+                    'type': qry.qtype,
+                    'class': qry.qclass
+                })
+            except Exception:
+                pass
         
         # Parse DNS answers
         if dns.an:
