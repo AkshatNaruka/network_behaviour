@@ -443,3 +443,24 @@ st.markdown("""
     <p>⚠️ Use responsibly and only on networks you have permission to analyze</p>
 </div>
 """, unsafe_allow_html=True)
+
+
+def main():
+    """Entry point for the netbehaviour-web command"""
+    import sys
+    import subprocess
+    
+    # Run streamlit with this file
+    # Only pass through safe streamlit arguments, filter out any potentially dangerous ones
+    safe_args = []
+    for arg in sys.argv[1:]:
+        # Allow common streamlit arguments
+        if arg.startswith('--') or not arg.startswith('-'):
+            safe_args.append(arg)
+    
+    subprocess.run([sys.executable, "-m", "streamlit", "run", __file__] + safe_args)
+
+
+if __name__ == "__main__":
+    # This will run when executed directly with streamlit run app.py
+    pass

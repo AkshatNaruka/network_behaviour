@@ -63,15 +63,41 @@ Network Behaviour Tool is an all-in-one network analysis solution that combines 
 - Python 3.8 or higher
 - Root/Administrator privileges (for some features like packet capture and SYN scanning)
 
-### Install Dependencies
+### Install from PyPI (Recommended)
+
+```bash
+# Install the package
+pip install network-behaviour
+
+# Or install with development dependencies
+pip install network-behaviour[dev]
+```
+
+After installation, you can use the command-line tools:
+
+```bash
+# Launch the desktop GUI
+netbehaviour-gui
+
+# Launch the web interface
+netbehaviour-web
+
+# Use the command-line interface
+netbehaviour --help
+```
+
+### Install from Source
 
 ```bash
 # Clone the repository
 git clone https://github.com/AkshatNaruka/network_behaviour.git
 cd network_behaviour
 
-# Install required packages
-pip install -r requirements.txt
+# Install in development mode
+pip install -e .
+
+# Or install with development dependencies
+pip install -e .[dev]
 ```
 
 ### Platform-Specific Notes
@@ -81,13 +107,15 @@ pip install -r requirements.txt
 # May need to install libpcap development files
 sudo apt-get install libpcap-dev
 
-# For ARP scanning, run with sudo
-sudo python3 app.py
+# For packet capture features, run with sudo
+sudo netbehaviour-gui
+# or
+sudo netbehaviour-web
 ```
 
 **Windows:**
 - Install [Npcap](https://nmap.org/npcap/) for packet capture
-- Run as Administrator for full functionality
+- Run Command Prompt or PowerShell as Administrator for full functionality
 
 **macOS:**
 ```bash
@@ -95,7 +123,7 @@ sudo python3 app.py
 brew install libpcap
 
 # Run with sudo for packet capture
-sudo python3 app.py
+sudo netbehaviour-gui
 ```
 
 ## 🎯 Usage
@@ -131,13 +159,17 @@ The desktop GUI provides a native, user-friendly interface with all features:
 - **📊 Network Info Tab**: View detailed network interface information
 - **📈 Bandwidth Monitor Tab**: Monitor real-time bandwidth usage
 
-**Note:** Some features require administrator/root privileges. On Linux/macOS, run with `sudo ./run_gui.sh` or `sudo python3 gui.py`. On Windows, right-click and select "Run as Administrator".
+**Note:** Some features require administrator/root privileges. On Linux/macOS, run with `sudo netbehaviour-gui` or `sudo ./run_gui.sh`. On Windows, right-click Command Prompt and select "Run as Administrator", then run `netbehaviour-gui`.
 
 ### Streamlit Web Interface
 
 Alternatively, launch the interactive web interface:
 
 ```bash
+# If installed via pip
+netbehaviour-web
+
+# Or directly
 streamlit run app.py
 ```
 
@@ -157,7 +189,11 @@ The web interface provides:
 For advanced users and automation, use the CLI:
 
 ```bash
-# Packet capture
+# If installed via pip, use the netbehaviour command
+netbehaviour capture --interface eth0 --count 100 --filter "tcp port 80"
+netbehaviour capture --output capture.pcap --analyze
+
+# Or use the script directly
 python cli.py capture --interface eth0 --count 100 --filter "tcp port 80"
 python cli.py capture --output capture.pcap --analyze
 
