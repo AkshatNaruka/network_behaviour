@@ -1,3 +1,19 @@
+# Core dependencies
 matplotlib==3.7.1
 scapy==2.5.0
 streamlit==1.23.1
+
+# Network utilities
+psutil==5.9.5
+netifaces==0.11.0
+
+# DNS and protocol support
+dnspython==2.4.2
+
+# Visualization and graphs
+networkx==3.1
+plotly==5.17.0
+
+# Data handling
+pandas==2.0.3
+numpy==1.24.3
